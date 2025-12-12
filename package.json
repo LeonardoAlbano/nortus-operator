@@ -12,11 +12,14 @@
     "prepare": "husky",
     "commitlint": "commitlint"
   },
-    "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,css,md}": ["prettier --write"]
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "next": "16.0.10",
+    "next-intl": "^4.6.0",
     "react": "19.2.1",
     "react-dom": "19.2.1"
   },
