@@ -10,7 +10,7 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "commitlint": "commitlint",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "lint-staged": {
