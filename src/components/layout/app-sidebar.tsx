@@ -18,7 +18,7 @@ export function AppSidebar() {
           <SidebarNav variant="icon" />
         </div>
 
-        <div className="flex h-12 w-12 items-center justify-center rounded-full [background-image:var(--loomi-gradient-primary)] font-semibold text-white shadow-(--loomi-shadow-user)">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-(image:--loomi-gradient-primary) font-semibold text-white shadow-(--loomi-shadow-user)">
           AC
         </div>
       </div>
