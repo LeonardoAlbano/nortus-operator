@@ -3,13 +3,26 @@
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Button } from './ui/button';
+import { ChevronDown } from 'lucide-react';
+
+const LOCALES = [
+  { value: 'pt-BR', label: 'PT-BR' },
+  { value: 'en', label: 'EN' },
+] as const;
 
 export function LanguagemSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  function onChange(nextLocale: string) {
+  function setLocale(nextLocale: string) {
     startTransition(async () => {
       await fetch('/api/locale', {
         method: 'POST',
@@ -21,10 +34,24 @@ export function LanguagemSwitcher() {
     });
   }
 
+  const current = LOCALES.find((l) => l.value === locale)?.label ?? 'PT-BR';
+
   return (
-    <select value={locale} onChange={(e) => onChange(e.target.value)} disabled={isPending}>
-      <option value="pt-BR">PT-BR</option>
-      <option value="en">EN</option>
-    </select>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="sm" disabled={isPending}>
+          {current}
+          <ChevronDown className="ml-2 h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end">
+        {LOCALES.map((l) => (
+          <DropdownMenuItem key={l.value} onClick={() => setLocale(l.value)}>
+            {l.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
