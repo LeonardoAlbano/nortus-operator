@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
   {
     variants: {
       variant: {
@@ -16,6 +16,21 @@ const buttonVariants = cva(
           'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+
+        loomiNavIdle:
+          'bg-[rgb(var(--loomi-surface-rgb)/0.70)] text-[rgb(255_255_255_/0.82)] hover:text-white',
+
+        loomiNavActive:
+          'bg-loomi-primary text-white shadow-[var(--loomi-shadow-primary-strong)] hover:bg-loomi-primary',
+
+        loomiPillIdle:
+          'bg-[rgb(var(--loomi-surface-rgb)/0.75)] text-[rgb(255_255_255_/0.85)] hover:bg-[rgb(var(--loomi-surface-rgb)/0.90)]',
+
+        loomiPillActive:
+          'bg-loomi-accent text-white shadow-[var(--loomi-shadow-accent)] hover:bg-loomi-accent',
+        loomibtn: 'bg-[#2B3248]/70 text-white/80 hover:text-white',
+        blueloomi:
+          'bg-[#1D6DFF] text-white shadow-[0_2px_25px_rgba(29,109,255,0.45)] hover:bg-[#1A62E6]',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {

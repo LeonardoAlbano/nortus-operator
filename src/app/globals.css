@@ -41,6 +41,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --app-sidebar-w: 150px;
+
+  --spacing-15: 3.75rem;
+
+  --color-loomi-bg: rgb(var(--loomi-bg-rgb));
+  --color-loomi-header: rgb(var(--loomi-header-rgb));
+  --color-loomi-primary: rgb(var(--loomi-primary-rgb) / <alpha-value>);
+  --color-loomi-accent: rgb(var(--loomi-accent-rgb) / <alpha-value>);
+  --color-loomi-surface: rgb(var(--loomi-surface-rgb) / <alpha-value>);
 }
 
 :root {
@@ -76,6 +86,28 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --loomi-header-rgb: 32 39 62;
+  --loomi-bg-rgb: 11 17 37;
+  --loomi-surface-rgb: 34 40 58;
+
+  --loomi-primary-rgb: 29 109 255;
+  --loomi-accent-rgb: 67 210 203;
+
+  --loomi-shadow-primary-strong: 0 2px 25px rgba(29, 109, 255, 0.45);
+  --loomi-shadow-primary-soft: 0 2px 20px rgba(29, 109, 255, 0.18);
+  --loomi-shadow-accent: 0 10px 32px rgba(67, 210, 203, 0.35);
+
+  --loomi-primary-700-rgb: 13 76 218;
+
+  --loomi-gradient-primary: linear-gradient(
+    180deg,
+    rgb(var(--loomi-primary-rgb)) 0%,
+    rgb(var(--loomi-primary-700-rgb)) 100%
+  );
+
+  --loomi-shadow-user: 0 5px 30px rgba(29, 109, 255, 0.35);
+  --loomi-shadow-sidebar: 24px 0 80px rgba(0, 0, 0, 0.55);
 }
 
 .dark {
