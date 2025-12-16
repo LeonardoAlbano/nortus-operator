@@ -1,6 +1,220 @@
 {
   "Login": {
     "title": "Login",
-    "subtitle": "Enter your credentials to access your account."
+    "subtitle": "Enter your credentials to access your account.",
+    "help": "Help",
+    "fields": {
+      "username": {
+        "label": "Username*",
+        "placeholder": "Username",
+        "hint": "Enter your e-mail, document or passport."
+      },
+      "password": {
+        "label": "Password*",
+        "placeholder": "Password",
+        "show": "Show password",
+        "hide": "Hide password"
+      }
+    },
+    "remember": "Remember my username",
+    "forget": "Forget my password",
+    "submit": "Sign in",
+    "submitting": "Signing in...",
+    "success": "Signed in successfully.",
+    "errors": {
+      "usernameRequired": "Username is required.",
+      "passwordRequired": "Password is required.",
+      "invalidCredentials": "Invalid credentials.",
+      "generic": "Could not sign in. Try again."
+    }
+  },
+  "Simulator": {
+    "title": "Plan Simulator",
+    "plansTitle": "Custom plans",
+    "plans": {
+      "basic": "Basic",
+      "mid": "Mid",
+      "premium": "Premium"
+    },
+    "recommended": "Recommended",
+    "perMonth": "Per month",
+
+    "vehicleValue": {
+      "label": "Vehicle value",
+      "range": "R$ 10,000 → R$ 500,000",
+      "min": "R$ 10,000",
+      "max": "R$ 500,000"
+    },
+
+    "age": {
+      "label": "Customer age",
+      "years": "years",
+      "range": "18 → 90",
+      "min": "18 years",
+      "max": "90 years"
+    },
+
+    "coveragesTitle": "Additional coverages",
+    "coverages": {
+      "theft": "Theft coverage",
+      "collision": "Collision damage",
+      "fire": "Fire coverage",
+      "natural": "Natural events (hail, flooding)"
+    },
+
+    "benefitsTitle": "Included benefits",
+    "benefits": {
+      "allBasic": "Everything from Basic",
+      "spareCar": "Replacement car",
+      "glass": "Glass coverage"
+    },
+
+    "kpisTitle": "KPIs",
+    "metrics": {
+      "conversion": "Conversion",
+      "roi": "ROI"
+    },
+
+    "estimateLabel": "Monthly estimate"
+  },
+  "Tickets": {
+    "pageTitle": "Ticket Management",
+    "listTitle": "Tickets List",
+
+    "stats": {
+      "open": "Open Tickets",
+      "inProgress": "In Progress",
+      "resolved": "Resolved",
+      "avgTime": "Average Time"
+    },
+
+    "filters": {
+      "searchPlaceholder": "Search by ID, client or subject...",
+      "statusAll": "All statuses",
+      "priorityAll": "All priorities",
+      "responsibleAll": "All assignees",
+      "responsibleSearchPlaceholder": "Search assignee...",
+      "responsibleEmpty": "No assignee found."
+    },
+
+    "table": {
+      "id": "ID",
+      "priority": "Priority",
+      "client": "Client",
+      "subject": "Subject",
+      "status": "Status",
+      "createdAt": "Created at",
+      "responsible": "Assignee",
+      "actions": "Actions"
+    },
+
+    "actions": {
+      "edit": "Edit",
+      "view": "View",
+      "close": "Close",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving...",
+      "back": "Back",
+      "delete": "Delete",
+      "confirmDelete": "Confirm deletion",
+      "deleting": "Deleting..."
+    },
+
+    "status": {
+      "open": "Open",
+      "inProgress": "In progress",
+      "closed": "Closed",
+      "resolvedLabel": "Resolved"
+    },
+
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+
+    "empty": {
+      "loading": "Loading...",
+      "notFound": "No tickets found",
+      "noneSelected": "No ticket selected."
+    },
+
+    "pagination": {
+      "showing": "Showing {pageSize} per page"
+    },
+
+    "dialogs": {
+      "detailsTitle": "Ticket Details",
+      "detailsDescription": "View the information for the selected ticket.",
+
+      "newTitle": "New Ticket",
+      "newDescription": "Fill out the fields to create a new ticket.",
+
+      "editTitle": "Edit Ticket",
+      "editDescription": "Update the selected ticket information.",
+
+      "deleteTitle": "Delete Ticket",
+      "deleteDescription": "This action is permanent. Confirm to delete the ticket.",
+
+      "fields": {
+        "id": "ID",
+        "client": "Client",
+        "clientName": "Client name",
+        "email": "Email",
+        "priority": "Priority",
+        "status": "Status",
+        "responsible": "Assignee",
+        "subject": "Subject"
+      }
+    },
+
+    "toast": {
+      "createSuccess": "Ticket created successfully!",
+      "createError": "Failed to create ticket",
+      "updateSuccess": "Ticket updated successfully.",
+      "updateError": "Failed to update ticket",
+      "deleteSuccess": "Ticket deleted successfully!",
+      "deleteError": "Failed to delete ticket"
+    },
+
+    "validation": {
+      "clientRequired": "Client name is required",
+      "emailInvalid": "Invalid email",
+      "priorityRequired": "Select a priority",
+      "statusRequired": "Select a status",
+      "responsibleRequired": "Assignee is required",
+      "subjectRequired": "Subject is required"
+    }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "refresh": "Refresh",
+
+    "kpi": {
+      "title": "KPI Trend",
+      "tabs": {
+        "retention": "Retention",
+        "conversion": "Conversion",
+        "churn": "Churn",
+        "arpu": "ARPU"
+      }
+    },
+
+    "conversion": {
+      "title": "Conversion rate"
+    },
+
+    "map": {
+      "title": "Customers map by region",
+      "allPlaces": "All locations",
+      "allTypes": "All types"
+    },
+
+    "common": {
+      "emptyChart": "",
+      "chevron": ">"
+    }
   }
 }
