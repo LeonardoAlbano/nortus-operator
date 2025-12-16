@@ -45,6 +45,7 @@
   --app-sidebar-w: 150px;
 
   --spacing-15: 3.75rem;
+  --spacing-22: 5.62rem;
 
   --color-loomi-bg: rgb(var(--loomi-bg-rgb));
   --color-loomi-header: rgb(var(--loomi-header-rgb));
@@ -92,11 +93,7 @@
   --loomi-surface-rgb: 34 40 58;
 
   --loomi-primary-rgb: 29 109 255;
-  --loomi-accent-rgb: 67 210 203;
-
-  --loomi-shadow-primary-strong: 0 2px 25px rgba(29, 109, 255, 0.45);
-  --loomi-shadow-primary-soft: 0 2px 20px rgba(29, 109, 255, 0.18);
-  --loomi-shadow-accent: 0 10px 32px rgba(67, 210, 203, 0.35);
+  --loomi-accent-rgb: 56 201 216;
 
   --loomi-primary-700-rgb: 13 76 218;
 
@@ -106,8 +103,14 @@
     rgb(var(--loomi-primary-700-rgb)) 100%
   );
 
-  --loomi-shadow-user: 0 5px 30px rgba(29, 109, 255, 0.35);
-  --loomi-shadow-sidebar: 24px 0 80px rgba(0, 0, 0, 0.55);
+  --loomi-shadow-primary-strong: 0 2px 25px rgb(var(--loomi-primary-rgb) / 0.45);
+  --loomi-shadow-primary-soft: 0 18px 45px rgb(var(--loomi-primary-rgb) / 0.35);
+
+  --loomi-shadow-accent: 0 10px 32px rgb(var(--loomi-accent-rgb) / 0.35);
+  --loomi-shadow-accent-soft: 0 3px 25px rgb(var(--loomi-accent-rgb) / 0.35);
+
+  --loomi-shadow-user: 0 5px 30px rgb(var(--loomi-primary-rgb) / 0.35);
+  --loomi-shadow-sidebar: 24px 0 80px rgb(0 0 0 / 0.55);
 }
 
 .dark {
@@ -150,5 +153,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgb(var(--loomi-surface-rgb) / 0.28);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: 0 20px 80px rgb(0 0 0 / 0.45);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 }
