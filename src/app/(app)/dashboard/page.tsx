@@ -1,3 +1,5 @@
+import { DashboardScreen } from '@/features/dashboard/ui/dashboard-screen';
+
 export default function DashboardPage() {
-  return <h1 className="text-xl font-semibold">Dashboard</h1>;
+  return <DashboardScreen />;
 }

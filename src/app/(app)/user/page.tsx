@@ -1,3 +1,5 @@
+import { UserUnderConstruction } from '@/features/user/ui/user-under-construction';
+
 export default function UserPage() {
-  return <h1 className="text-xl font-semibold">User</h1>;
+  return <UserUnderConstruction />;
 }
