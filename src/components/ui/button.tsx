@@ -24,10 +24,10 @@ const buttonVariants = cva(
           'bg-loomi-primary text-white shadow-[var(--loomi-shadow-primary-strong)] hover:bg-loomi-primary',
 
         loomiPillIdle:
-          'bg-[rgb(var(--loomi-surface-rgb)/0.75)] text-[rgb(255_255_255_/0.85)] hover:bg-[rgb(var(--loomi-surface-rgb)/0.90)]',
+          'bg-[rgb(var(--loomi-surface-rgb)/0.35)] text-white/75 hover:bg-[rgb(var(--loomi-surface-rgb)/0.55)] border border-white/10',
 
         loomiPillActive:
-          'bg-loomi-accent text-white shadow-[var(--loomi-shadow-accent)] hover:bg-loomi-accent',
+          'bg-[rgb(var(--loomi-accent-rgb)/0.95)] text-[#06111E] border border-white/10 shadow-[0_3px_25px_rgba(56,201,216,0.35)]',
         loomibtn: 'bg-[#2B3248]/70 text-white/80 hover:text-white',
         blueloomi:
           'bg-[#1D6DFF] text-white shadow-[0_2px_25px_rgba(29,109,255,0.45)] hover:bg-[#1A62E6]',
