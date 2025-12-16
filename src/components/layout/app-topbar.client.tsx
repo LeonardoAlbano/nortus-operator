@@ -11,7 +11,7 @@ import { NAV_ITEMS } from '@/components/nav/nav-items';
 import { UserMenu } from '@/components/layout/user-menu';
 import { NewTicketDialog } from '@/features/tickets/ui/new-ticket-dialog';
 
-export function AppTopbar() {
+export function AppTopbarClient({ userInitials }: { userInitials: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -21,10 +21,9 @@ export function AppTopbar() {
   }, [pathname]);
 
   const isTickets = useMemo(() => {
-    return /(^|\/)([a-z]{2}(?:-[A-Z]{2})?)?\/tickets(\/|$)/.test(pathname);
+    const path = pathname.replace(/^\/[a-z]{2}(?:-[a-z]{2})?(?=\/)/i, '');
+    return path === '/tickets' || path.startsWith('/tickets/');
   }, [pathname]);
-
-  const initials = 'NA';
 
   return (
     <header className="bg-loomi-header fixed inset-x-0 top-0 z-10 h-16 border-b border-white/5">
@@ -42,8 +41,11 @@ export function AppTopbar() {
                 <SheetTitle className="text-white">Nortus</SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6">
+              <div className="mt-6 flex h-full flex-col">
                 <SidebarNav variant="full" onNavigate={() => setOpen(false)} />
+                <div className="mt-auto pt-6">
+                  <UserMenu initials={userInitials} align="end" showChevron />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -52,10 +54,6 @@ export function AppTopbar() {
         <h1 className="flex-1 truncate text-lg font-semibold text-white">{pageTitle}</h1>
 
         {isTickets ? <NewTicketDialog triggerClassName="h-10 rounded-full px-4" /> : null}
-
-        <div className="lg:hidden">
-          <UserMenu initials={initials} align="end" />
-        </div>
       </div>
     </header>
   );

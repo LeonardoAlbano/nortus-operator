@@ -1,9 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { NAV_ITEMS } from './nav-items';
+import { NAV_ITEMS, type NavItem } from './nav-items';
 
 type Props = {
   className?: string;
@@ -17,7 +19,7 @@ export function SidebarNav({ className, variant = 'icon', onNavigate }: Props) {
 
   return (
     <nav className={cn('flex flex-col', isFull ? 'gap-2' : 'gap-10', className)}>
-      {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+      {NAV_ITEMS.map(({ href, label, icon: Icon }: NavItem) => {
         const isActive = pathname === href || pathname.startsWith(`${href}/`);
 
         return (
@@ -28,11 +30,12 @@ export function SidebarNav({ className, variant = 'icon', onNavigate }: Props) {
             size={isFull ? 'default' : 'icon'}
             className={cn(
               isFull ? 'w-full justify-start gap-3' : 'h-15 w-16 rounded-xl',
+              'cursor-pointer',
               !isActive &&
                 'hover:bg-[rgb(var(--loomi-primary-rgb)/0.60)] hover:shadow-(--loomi-shadow-primary-soft)',
             )}
           >
-            <Link href={href} aria-label={label} onClick={onNavigate}>
+            <Link href={href} aria-label={label} onClick={onNavigate} className="cursor-pointer">
               <Icon className="h-6 w-6" />
               {isFull ? <span className="text-sm">{label}</span> : null}
             </Link>

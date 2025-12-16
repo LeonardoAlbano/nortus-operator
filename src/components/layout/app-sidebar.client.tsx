@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import { SidebarNav } from '@/components/nav/sidebar-nav';
@@ -5,9 +7,7 @@ import { Button } from '@/components/ui/button';
 import NortusIcon from '@/components/icons/nortus-icon';
 import { UserMenu } from '@/components/layout/user-menu';
 
-export function AppSidebar() {
-  const initials = 'NA';
-
+export function AppSidebarClient({ userInitials }: { userInitials: string }) {
   return (
     <aside className="fixed inset-y-0 left-0 z-20 hidden w-(--app-sidebar-w) lg:flex">
       <div className="bg-loomi-header flex h-full w-full flex-col items-center overflow-hidden rounded-r-[40px] px-6 py-8 shadow-(--loomi-shadow-sidebar)">
@@ -21,9 +21,7 @@ export function AppSidebar() {
           <SidebarNav variant="icon" />
         </div>
 
-        <div className="flex w-full items-center justify-center">
-          <UserMenu initials={initials} align="start" />
-        </div>
+        <UserMenu initials={userInitials} align="end" />
       </div>
     </aside>
   );
