@@ -11,7 +11,11 @@ import { NAV_ITEMS } from '@/components/nav/nav-items';
 import { UserMenu } from '@/components/layout/user-menu';
 import { NewTicketDialog } from '@/features/tickets/ui/new-ticket-dialog';
 
-export function AppTopbarClient({ userInitials }: { userInitials: string }) {
+type Props = {
+  userInitials?: string;
+};
+
+export function AppTopbarClient({ userInitials }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -21,9 +25,10 @@ export function AppTopbarClient({ userInitials }: { userInitials: string }) {
   }, [pathname]);
 
   const isTickets = useMemo(() => {
-    const path = pathname.replace(/^\/[a-z]{2}(?:-[a-z]{2})?(?=\/)/i, '');
-    return path === '/tickets' || path.startsWith('/tickets/');
+    return /(^|\/)([a-z]{2}(?:-[A-Z]{2})?)?\/tickets(\/|$)/.test(pathname);
   }, [pathname]);
+
+  const initials = userInitials?.trim() ? userInitials : 'NA';
 
   return (
     <header className="bg-loomi-header fixed inset-x-0 top-0 z-10 h-16 border-b border-white/5">
@@ -41,11 +46,8 @@ export function AppTopbarClient({ userInitials }: { userInitials: string }) {
                 <SheetTitle className="text-white">Nortus</SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6 flex h-full flex-col">
+              <div className="mt-6">
                 <SidebarNav variant="full" onNavigate={() => setOpen(false)} />
-                <div className="mt-auto pt-6">
-                  <UserMenu initials={userInitials} align="end" showChevron />
-                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -54,6 +56,10 @@ export function AppTopbarClient({ userInitials }: { userInitials: string }) {
         <h1 className="flex-1 truncate text-lg font-semibold text-white">{pageTitle}</h1>
 
         {isTickets ? <NewTicketDialog triggerClassName="h-10 rounded-full px-4" /> : null}
+
+        <div className="lg:hidden">
+          <UserMenu initials={initials} align="end" />
+        </div>
       </div>
     </header>
   );

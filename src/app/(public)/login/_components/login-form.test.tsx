@@ -63,6 +63,21 @@ describe('LoginForm', () => {
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
   });
 
+  it('bloqueia submit com email inválido e mostra erro', async () => {
+    const user = userEvent.setup();
+    await renderLoginForm();
+
+    await user.type(screen.getByPlaceholderText('fields.username.placeholder'), 'leo');
+    await user.type(screen.getByPlaceholderText('fields.password.placeholder'), '123456');
+    await user.click(screen.getByRole('button', { name: /submit/i }));
+
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    await waitFor(() => {
+      expect(screen.getByText('errors.emailInvalid')).toBeInTheDocument();
+    });
+  });
+
   it('permite digitar e autenticar', async () => {
     const user = userEvent.setup();
     await renderLoginForm();
