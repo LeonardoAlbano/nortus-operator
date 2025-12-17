@@ -113,6 +113,94 @@ function actionLabel(key: ActionKey) {
   return 'Ver histórico';
 }
 
+function nextTurn(state: Pick<ChatState, 'phase' | 'step' | 'suggestion'>, text: string) {
+  const phase = state.phase;
+  const step = state.step;
+
+  let assistantText = '';
+  let nextPhase: Phase = phase;
+  let nextStep = step;
+  let nextSuggestion: Suggestion | null = state.suggestion;
+
+  const wantsQuestions = includesAny(text, ['pergunta', 'perguntas', 'antes', 'duvida', 'dúvida']);
+  const wantsProposal = includesAny(text, ['proposta', 'agora', 'sim', 'manda']);
+  const wantsCall = includesAny(text, ['ligacao', 'ligação', 'ligar', 'telefone', 'telefonar']);
+  const wantsHistory = includesAny(text, ['historico', 'histórico', 'conversa', 'resumo']);
+
+  if (phase === 'idle' || phase === 'awaiting_choice') {
+    if (wantsQuestions) {
+      assistantText = 'Perfeito. Primeiro: qual é o modelo e o ano do veículo?';
+      nextPhase = 'collecting';
+      nextStep = 1;
+      nextSuggestion = null;
+    } else if (wantsProposal) {
+      assistantText =
+        'Entendi. Para montar a proposta rápida: qual o valor aproximado do veículo e sua idade?';
+      nextPhase = 'collecting';
+      nextStep = 10;
+      nextSuggestion = null;
+    } else if (wantsCall) {
+      assistantText = 'Certo. Qual o melhor telefone e horário para eu ligar?';
+      nextPhase = 'collecting';
+      nextStep = 20;
+      nextSuggestion = null;
+    } else if (wantsHistory) {
+      assistantText =
+        'Posso resumir o histórico desta conversa e os próximos passos sugeridos. Quer que eu gere um resumo agora?';
+      nextPhase = 'ready';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    } else {
+      assistantText =
+        'Entendi. Quer uma proposta agora, ou prefere que eu faça algumas perguntas rápidas antes?';
+      nextPhase = 'awaiting_choice';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    }
+  } else if (phase === 'collecting') {
+    if (step === 1) {
+      assistantText = 'Boa. Agora: qual é o CEP de circulação principal?';
+      nextStep = 2;
+    } else if (step === 2) {
+      assistantText = 'Última pergunta: você prefere franquia menor ou mensalidade menor?';
+      nextStep = 3;
+    } else if (step === 3) {
+      assistantText =
+        'Perfeito, com isso eu já consigo sugerir um próximo passo. Quer que eu gere uma proposta Premium com desconto e opcionais recomendados?';
+      nextPhase = 'ready';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    } else if (step === 10) {
+      assistantText = 'Perfeito. Você usa o carro mais para trabalho, lazer ou ambos?';
+      nextStep = 11;
+    } else if (step === 11) {
+      assistantText =
+        'Fechado. Quer que eu gere uma proposta Premium com desconto e opcionais recomendados?';
+      nextPhase = 'ready';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    } else if (step === 20) {
+      assistantText =
+        'Perfeito. Vou registrar a solicitação de ligação. Quer que eu também gere uma proposta enquanto isso?';
+      nextPhase = 'ready';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    } else {
+      assistantText =
+        'Perfeito, com isso eu já consigo sugerir um próximo passo. Quer que eu gere uma proposta Premium com desconto e opcionais recomendados?';
+      nextPhase = 'ready';
+      nextStep = 0;
+      nextSuggestion = defaultSuggestion();
+    }
+  } else {
+    assistantText =
+      'Certo. Posso seguir com a proposta, ou se preferir eu faço uma ligação e alinhamos os detalhes em 2 minutos.';
+    nextSuggestion = defaultSuggestion();
+  }
+
+  return { assistantText, nextPhase, nextStep, nextSuggestion };
+}
+
 export const useChatStore = create<ChatState>((set, get) => ({
   messages: [],
   suggestion: null,
@@ -168,73 +256,38 @@ export const useChatStore = create<ChatState>((set, get) => ({
       time: nowTime(),
     };
 
-    const nextMessages = [...state.messages, clientMsg];
-
-    const phase = state.phase;
-    const step = state.step;
-
-    let assistantText = '';
-    let nextPhase: Phase = phase;
-    let nextStep = step;
-    let nextSuggestion: Suggestion | null = state.suggestion;
-
-    if (phase === 'idle' || phase === 'awaiting_choice') {
-      if (includesAny(text, ['pergunta', 'antes', 'duvida', 'dúvida'])) {
-        assistantText = 'Perfeito. Primeiro: qual é o modelo e o ano do veículo?';
-        nextPhase = 'collecting';
-        nextStep = 1;
-        nextSuggestion = null;
-      } else if (includesAny(text, ['proposta', 'agora', 'sim', 'manda'])) {
-        assistantText =
-          'Entendi. Para montar a proposta rápida: qual o valor aproximado do veículo e sua idade?';
-        nextPhase = 'collecting';
-        nextStep = 10;
-        nextSuggestion = null;
-      } else {
-        assistantText =
-          'Entendi. Quer uma proposta agora, ou prefere que eu faça algumas perguntas rápidas antes?';
-        nextPhase = 'awaiting_choice';
-        nextStep = 0;
-        nextSuggestion = defaultSuggestion();
-      }
-    } else if (phase === 'collecting') {
-      if (step === 1) {
-        assistantText = 'Boa. Agora: qual é o CEP de circulação principal?';
-        nextStep = 2;
-      } else if (step === 2) {
-        assistantText = 'Última pergunta: você prefere franquia menor ou mensalidade menor?';
-        nextStep = 3;
-      } else {
-        assistantText =
-          'Perfeito, com isso eu já consigo sugerir um próximo passo. Quer que eu gere uma proposta Premium com desconto e opcionais recomendados?';
-        nextPhase = 'ready';
-        nextStep = 0;
-        nextSuggestion = defaultSuggestion();
-      }
-    } else {
-      assistantText =
-        'Certo. Posso seguir com a proposta, ou se preferir eu faço uma ligação e alinhamos os detalhes em 2 minutos.';
-      nextSuggestion = defaultSuggestion();
-    }
+    const turn = nextTurn(
+      { phase: state.phase, step: state.step, suggestion: state.suggestion },
+      text,
+    );
 
     const assistantMsg: ChatMessage = {
       id: id(),
       side: 'assistant',
       title: 'Assistente',
-      text: assistantText,
+      text: turn.assistantText,
       time: nowTime(),
     };
 
     set({
-      messages: [...nextMessages, assistantMsg],
-      phase: nextPhase,
-      step: nextStep,
-      suggestion: nextSuggestion,
+      messages: [...state.messages, clientMsg, assistantMsg],
+      phase: turn.nextPhase,
+      step: turn.nextStep,
+      suggestion: turn.nextSuggestion,
     });
   },
 
   applyAction: (key: ActionKey, clientTitle?: string) => {
+    const state = get();
+
     const label = actionLabel(key);
+
+    const intent =
+      key === 'send_proposal'
+        ? 'proposta agora'
+        : key === 'make_call'
+          ? 'fazer ligação'
+          : 'ver histórico';
 
     const clickedMsg: ChatMessage = {
       id: id(),
@@ -252,8 +305,24 @@ export const useChatStore = create<ChatState>((set, get) => ({
       time: nowTime(),
     };
 
-    set((s) => ({
-      messages: [...s.messages, clickedMsg, systemMsg],
-    }));
+    const turn = nextTurn(
+      { phase: state.phase, step: state.step, suggestion: state.suggestion },
+      intent,
+    );
+
+    const assistantMsg: ChatMessage = {
+      id: id(),
+      side: 'assistant',
+      title: 'Assistente',
+      text: turn.assistantText,
+      time: nowTime(),
+    };
+
+    set({
+      messages: [...state.messages, clickedMsg, systemMsg, assistantMsg],
+      phase: turn.nextPhase,
+      step: turn.nextStep,
+      suggestion: turn.nextSuggestion,
+    });
   },
 }));

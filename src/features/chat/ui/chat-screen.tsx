@@ -107,7 +107,7 @@ export function ChatScreen({ me }: { me: Me }) {
                       <Button
                         key={a.key}
                         variant="blueloomi"
-                        className="h-10 w-full rounded-full px-6 sm:w-auto"
+                        className="h-10 w-full cursor-pointer rounded-full px-6 sm:w-auto"
                         onClick={() => applyAction(a.key, meLabel)}
                       >
                         {a.label}
@@ -126,12 +126,17 @@ export function ChatScreen({ me }: { me: Me }) {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder="Escreva aqui..."
-              className="h-10 w-full bg-transparent text-sm text-white outline-none placeholder:text-white/40"
+              className="h-10 w-full cursor-pointer bg-transparent text-sm text-white outline-none placeholder:text-white/40"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleSend();
               }}
             />
-            <Button variant="blueloomi" size="icon" className="rounded-full" onClick={handleSend}>
+            <Button
+              variant="blueloomi"
+              size="icon"
+              className="cursor-pointer rounded-full"
+              onClick={handleSend}
+            >
               <Send className="size-4" />
             </Button>
           </div>

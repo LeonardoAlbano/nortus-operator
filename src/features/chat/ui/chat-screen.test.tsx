@@ -64,15 +64,15 @@ describe('chat.store', () => {
     expect(state.phase).toBe('collecting');
   });
 
-  it('applyAction: adiciona mensagem do cliente + mensagem system', () => {
+  it('applyAction: adiciona mensagem do cliente + mensagem system + resposta do assistente', () => {
     const before = useChatStore.getState().messages.length;
 
     useChatStore.getState().applyAction('make_call', 'Leonardo');
 
     const state = useChatStore.getState();
-    expect(state.messages.length).toBe(before + 2);
+    expect(state.messages.length).toBe(before + 3);
 
-    const [clientMsg, systemMsg] = state.messages.slice(-2);
+    const [clientMsg, systemMsg, assistantMsg] = state.messages.slice(-3);
 
     expect(clientMsg.side).toBe('client');
     expect(clientMsg.title).toBe('Leonardo');
@@ -80,5 +80,7 @@ describe('chat.store', () => {
 
     expect(systemMsg.side).toBe('system');
     expect(systemMsg.text).toContain('Ação executada');
+
+    expect(assistantMsg.side).toBe('assistant');
   });
 });
