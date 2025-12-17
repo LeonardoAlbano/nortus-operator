@@ -26,7 +26,7 @@ export function LoginForm() {
 
   const schema = useMemo(() => {
     return z.object({
-      email: z.string().trim().min(1, t('errors.usernameRequired')),
+      email: z.string().trim().min(1, t('errors.usernameRequired')).email(t('errors.emailInvalid')),
       password: z.string().min(1, t('errors.passwordRequired')),
       remember: z.boolean().optional(),
     });
@@ -82,11 +82,12 @@ export function LoginForm() {
   const passwordError = form.formState.errors.password?.message;
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <div className="space-y-2">
         <label className="text-sm text-white/80">{t('fields.username.label')}</label>
         <Input
           {...form.register('email')}
+          type="email"
           className="h-12 rounded-xl border-white/10 bg-[rgb(var(--loomi-surface-rgb)/0.35)] text-white placeholder:text-white/40"
           placeholder={t('fields.username.placeholder')}
           autoComplete="email"
