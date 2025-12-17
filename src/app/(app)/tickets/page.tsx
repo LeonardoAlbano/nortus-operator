@@ -1,3 +1,5 @@
-export default function TicketsPage() {
-  return <h1 className="text-xl font-semibold">Tickets</h1>;
+import { TicketsPage } from '@/features/tickets/ui/tickets-page';
+
+export default function Page() {
+  return <TicketsPage />;
 }

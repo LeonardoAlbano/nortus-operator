@@ -1,3 +1,5 @@
+import { ChatScreen } from '@/features/chat/ui/chat-screen';
+
 export default function ChatPage() {
-  return <h1 className="text-xl font-semibold">Chat</h1>;
+  return <ChatScreen />;
 }

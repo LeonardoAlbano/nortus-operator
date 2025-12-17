@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { HelpCircle, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarNav } from '@/components/nav/sidebar-nav';
-import { LanguagemSwitcher } from '@/components/language-switcher';
 import { NAV_ITEMS } from '@/components/nav/nav-items';
+import { UserMenu } from '@/components/layout/user-menu';
+import { NewTicketDialog } from '@/features/tickets/ui/new-ticket-dialog';
 
 export function AppTopbar() {
   const pathname = usePathname();
@@ -18,6 +19,12 @@ export function AppTopbar() {
     const match = NAV_ITEMS.find((i) => pathname === i.href || pathname.startsWith(`${i.href}/`));
     return match?.label ?? 'Dashboard';
   }, [pathname]);
+
+  const isTickets = useMemo(() => {
+    return /(^|\/)([a-z]{2}(?:-[A-Z]{2})?)?\/tickets(\/|$)/.test(pathname);
+  }, [pathname]);
+
+  const initials = 'NA';
 
   return (
     <header className="bg-loomi-header fixed inset-x-0 top-0 z-10 h-16 border-b border-white/5">
@@ -42,17 +49,12 @@ export function AppTopbar() {
           </Sheet>
         </div>
 
-        <h1 className="text-lg font-semibold text-white">{pageTitle}</h1>
+        <h1 className="flex-1 truncate text-lg font-semibold text-white">{pageTitle}</h1>
 
-        <div className="ml-auto flex items-center gap-2">
-          <Button variant="secondary" size="sm" className="cursor-pointer">
-            <HelpCircle className="mr-2 size-4" />
-            Help
-          </Button>
+        {isTickets ? <NewTicketDialog triggerClassName="h-10 rounded-full px-4" /> : null}
 
-          <div className="cursor-pointer">
-            <LanguagemSwitcher />
-          </div>
+        <div className="lg:hidden">
+          <UserMenu initials={initials} align="end" />
         </div>
       </div>
     </header>
