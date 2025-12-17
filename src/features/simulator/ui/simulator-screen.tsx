@@ -278,7 +278,8 @@ export function SimulatorScreen() {
                   <span className="tabular-nums">{formatBRL(selectedPlanPrice)}</span>
                 </div>
                 <div className="flex items-center justify-between gap-3">
-                  <span>{t('coverages')}</span>
+                  <span>{t('coveragesTotal')}</span>
+
                   <span className="tabular-nums">{formatBRL(coveragePrice)}</span>
                 </div>
                 <div className="flex items-center justify-between gap-3">
