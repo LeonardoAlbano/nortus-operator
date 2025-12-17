@@ -11,7 +11,11 @@ import { NAV_ITEMS } from '@/components/nav/nav-items';
 import { UserMenu } from '@/components/layout/user-menu';
 import { NewTicketDialog } from '@/features/tickets/ui/new-ticket-dialog';
 
-export function AppTopbarClient() {
+type Props = {
+  userInitials?: string;
+};
+
+export function AppTopbarClient({ userInitials }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -24,7 +28,7 @@ export function AppTopbarClient() {
     return /(^|\/)([a-z]{2}(?:-[A-Z]{2})?)?\/tickets(\/|$)/.test(pathname);
   }, [pathname]);
 
-  const initials = 'NA';
+  const initials = userInitials?.trim() ? userInitials : 'NA';
 
   return (
     <header className="bg-loomi-header fixed inset-x-0 top-0 z-10 h-16 border-b border-white/5">
